@@ -1,0 +1,9 @@
+query pullRequests {
+  pullRequests {
+    id
+    title
+    description
+    link
+    isReviewed
+  }
+}

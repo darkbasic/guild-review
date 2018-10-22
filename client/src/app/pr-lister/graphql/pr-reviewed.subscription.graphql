@@ -1,0 +1,9 @@
+subscription prReviewed {
+  prReviewed {
+    id
+    title
+    description
+    link
+    isReviewed
+  }
+}

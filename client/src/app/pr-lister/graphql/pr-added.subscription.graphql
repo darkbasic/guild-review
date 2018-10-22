@@ -1,0 +1,9 @@
+subscription prAdded {
+  prAdded {
+    id
+    title
+    description
+    link
+    isReviewed
+  }
+}

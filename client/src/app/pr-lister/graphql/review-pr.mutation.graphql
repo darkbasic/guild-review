@@ -1,0 +1,9 @@
+mutation reviewPr($id: ID!) {
+  reviewPr(id: $id) {
+    id
+    title
+    description
+    link
+    isReviewed
+  }
+}

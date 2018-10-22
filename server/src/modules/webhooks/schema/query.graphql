@@ -1,0 +1,12 @@
+type Query {
+    pullRequests: [PullRequest!]!
+    pullRequest(id: ID!): PullRequest
+}
+
+type PullRequest @entity {
+    id: ID! @id
+    title: String! @column
+    description: String! @column
+    link: String! @column
+    isReviewed: Boolean! @column
+}

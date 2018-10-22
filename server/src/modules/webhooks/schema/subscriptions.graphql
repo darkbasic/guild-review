@@ -1,0 +1,4 @@
+type Subscription {
+    prAdded: PullRequest
+    prReviewed: PullRequest
+}

@@ -1,0 +1,9 @@
+directive @entity(embedded: Boolean, additionalFields: [AdditionalEntityFields]) on OBJECT
+directive @column(name: String, overrideType: String, overrideIsArray: Boolean) on FIELD_DEFINITION
+directive @id on FIELD_DEFINITION
+
+# Inputs
+input AdditionalEntityFields {
+    path: String
+    type: String
+}
