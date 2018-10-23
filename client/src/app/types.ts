@@ -35,8 +35,9 @@ export interface Query {
 
 export interface PullRequest {
   id: string;
+  project: string;
   title: string;
-  description: string;
+  description?: string | null;
   link: string;
   isReviewed: boolean;
 }
@@ -85,8 +86,9 @@ export namespace QueryResolvers {
 export namespace PullRequestResolvers {
   export interface Resolvers<Context = any> {
     id?: IdResolver<string, any, Context>;
+    project?: ProjectResolver<string, any, Context>;
     title?: TitleResolver<string, any, Context>;
-    description?: DescriptionResolver<string, any, Context>;
+    description?: DescriptionResolver<string | null, any, Context>;
     link?: LinkResolver<string, any, Context>;
     isReviewed?: IsReviewedResolver<boolean, any, Context>;
   }
@@ -96,13 +98,18 @@ export namespace PullRequestResolvers {
     Parent,
     Context
   >;
+  export type ProjectResolver<
+    R = string,
+    Parent = any,
+    Context = any
+  > = Resolver<R, Parent, Context>;
   export type TitleResolver<R = string, Parent = any, Context = any> = Resolver<
     R,
     Parent,
     Context
   >;
   export type DescriptionResolver<
-    R = string,
+    R = string | null,
     Parent = any,
     Context = any
   > = Resolver<R, Parent, Context>;
@@ -162,8 +169,9 @@ export namespace PrAdded {
   export type PrAdded = {
     __typename?: "PullRequest";
     id: string;
+    project: string;
     title: string;
-    description: string;
+    description?: string | null;
     link: string;
     isReviewed: boolean;
   };
@@ -180,8 +188,9 @@ export namespace PrReviewed {
   export type PrReviewed = {
     __typename?: "PullRequest";
     id: string;
+    project: string;
     title: string;
-    description: string;
+    description?: string | null;
     link: string;
     isReviewed: boolean;
   };
@@ -198,8 +207,9 @@ export namespace PullRequests {
   export type PullRequests = {
     __typename?: "PullRequest";
     id: string;
+    project: string;
     title: string;
-    description: string;
+    description?: string | null;
     link: string;
     isReviewed: boolean;
   };
@@ -218,8 +228,9 @@ export namespace ReviewPr {
   export type ReviewPr = {
     __typename?: "PullRequest";
     id: string;
+    project: string;
     title: string;
-    description: string;
+    description?: string | null;
     link: string;
     isReviewed: boolean;
   };
@@ -242,6 +253,7 @@ export class PrAddedGQL extends Apollo.Subscription<
     subscription prAdded {
       prAdded {
         id
+        project
         title
         description
         link
@@ -261,6 +273,7 @@ export class PrReviewedGQL extends Apollo.Subscription<
     subscription prReviewed {
       prReviewed {
         id
+        project
         title
         description
         link
@@ -280,6 +293,7 @@ export class PullRequestsGQL extends Apollo.Query<
     query pullRequests {
       pullRequests {
         id
+        project
         title
         description
         link
@@ -299,6 +313,7 @@ export class ReviewPrGQL extends Apollo.Mutation<
     mutation reviewPr($id: ID!) {
       reviewPr(id: $id) {
         id
+        project
         title
         description
         link

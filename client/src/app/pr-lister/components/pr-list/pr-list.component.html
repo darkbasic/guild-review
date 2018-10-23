@@ -1,6 +1,6 @@
 <mat-selection-list (selectionChange)="reviewPr($event)">
   <mat-list-option *ngFor="let pr of prs$ | async" [value]="pr" [selected]="pr.isReviewed">
-    <a matLine [href]="pr.link">{{pr.title}}</a>
+    <a matLine [href]="pr.link">{{pr.project}}: {{pr.title}}</a>
     <p matLine>
       {{pr.description}}
     </p>

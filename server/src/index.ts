@@ -5,7 +5,7 @@ import { ApolloServer, Config } from 'apollo-server-express';
 import * as express from 'express';
 import * as bodyParser from "body-parser";
 import { createLocalTunnel } from "./local-dev";
-import { Db, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
 import { PullRequestDbObject } from "./generated-models";
 import { createServer } from "http";
 

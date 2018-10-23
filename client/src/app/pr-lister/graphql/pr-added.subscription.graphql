@@ -1,6 +1,7 @@
 subscription prAdded {
   prAdded {
     id
+    project
     title
     description
     link

@@ -1,6 +1,7 @@
 mutation reviewPr($id: ID!) {
   reviewPr(id: $id) {
     id
+    project
     title
     description
     link

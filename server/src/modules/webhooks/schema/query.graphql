@@ -5,8 +5,9 @@ type Query {
 
 type PullRequest @entity {
     id: ID! @id
+    project: String! @column
     title: String! @column
-    description: String! @column
+    description: String @column
     link: String! @column
     isReviewed: Boolean! @column
 }

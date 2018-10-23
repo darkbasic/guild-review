@@ -1,6 +1,7 @@
 subscription prReviewed {
   prReviewed {
     id
+    project
     title
     description
     link

@@ -14,14 +14,28 @@ export class WebhooksProvider {
   constructor(
     @inject(ModuleConfig('webhooks')) private config: WebhooksModuleConfig,
   ) {
-    config.expressApp.post('/bitbucket-webhooks', async (req, res) => {
-      console.log('INCOMING WEBHOOK');
+    config.expressApp.post('/klm', async (req, res) => {
+      console.log('INCOMING KLM WEBHOOK');
       res.send({});
 
       await this.addPr({
+        project: "KLM",
         title: req.body.pullrequest.title,
         description: req.body.pullrequest.description,
         link: req.body.pullrequest.links.html.href,
+        isReviewed: false,
+      });
+    });
+
+    config.expressApp.post('/schneider', async (req, res) => {
+      console.log('INCOMING SCHNEIDER WEBHOOK');
+      res.send({});
+
+      await this.addPr({
+        project: "SCHNEIDER",
+        title: req.body.resource.title,
+        description: req.body.resource.description,
+        link: req.body.resource._links.web.href,
         isReviewed: false,
       });
     });

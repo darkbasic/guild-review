@@ -11,16 +11,18 @@ export interface PullRequestQueryArgs {
 
 export interface PullRequestDbObject {
   _id: ObjectID;
+  project: string;
   title: string;
-  description: string;
+  description: string | null;
   link: string;
   isReviewed: boolean;
 }
 
 export interface PullRequest {
   id: string;
+  project: string;
   title: string;
-  description: string;
+  description?: string | null;
   link: string;
   isReviewed: boolean;
 }
