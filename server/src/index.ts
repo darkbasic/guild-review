@@ -1,3 +1,4 @@
+require('newrelic');
 import 'reflect-metadata';
 import { GraphQLApp } from '@graphql-modules/core';
 import { webhooksModule } from "@modules/webhooks";

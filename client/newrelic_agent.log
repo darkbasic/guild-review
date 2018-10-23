@@ -1,0 +1,4 @@
+{"v":0,"level":30,"name":"newrelic","hostname":"arch-desktop","pid":9612,"time":"2018-10-23T21:38:39.517Z","msg":"Using New Relic for Node.js. Agent version: 4.9.0; Node version: v8.12.0."}
+{"v":0,"level":30,"name":"newrelic","hostname":"arch-desktop","pid":9612,"time":"2018-10-23T21:38:39.702Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"arch-desktop","pid":9612,"time":"2018-10-23T21:38:42.207Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/2137588/applications/191755010","component":"new_relic_response"}
+{"v":0,"level":30,"name":"newrelic","hostname":"arch-desktop","pid":9612,"time":"2018-10-23T21:38:42.207Z","msg":"Connected to collector-004.newrelic.com:443 with agent run ID WzIse2E6NTE0MzE4NTA1LGI6MTkxNzU1MDEyLGM6MjEzNzU4OCxkOiI0LjkuMCIsZToibm9kZWpzIixmOiJhcmNoLWRlc2t0b3AiLGc6W3thOjE5MTc1NTAxMCxiOiJndWlsZC1yZXZpZXcifV19LDYzMjY3MjI5MV0.","component":"collector_api"}
