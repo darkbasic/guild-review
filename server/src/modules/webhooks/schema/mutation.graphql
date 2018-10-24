@@ -1,3 +1,4 @@
 type Mutation {
     reviewPr(id: ID!): PullRequest!
+    updatePrComment(id: ID!, comment: String!): PullRequest!
 }

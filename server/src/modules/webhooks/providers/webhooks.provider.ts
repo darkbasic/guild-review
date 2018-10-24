@@ -18,26 +18,32 @@ export class WebhooksProvider {
       console.log('INCOMING KLM WEBHOOK');
       res.send({});
 
-      await this.addPr({
-        project: "KLM",
-        title: req.body.pullrequest.title,
-        description: req.body.pullrequest.description,
-        link: req.body.pullrequest.links.html.href,
-        isReviewed: false,
-      });
+      if (req.body.pullrequest.title && req.body.pullrequest.links.html.href) {
+        await this.addPr({
+          project: "KLM",
+          title: req.body.pullrequest.title,
+          description: req.body.pullrequest.description,
+          link: req.body.pullrequest.links.html.href,
+          isReviewed: false,
+          date: new Date(),
+        });
+      }
     });
 
     config.expressApp.post('/schneider', async (req, res) => {
       console.log('INCOMING SCHNEIDER WEBHOOK');
       res.send({});
 
-      await this.addPr({
-        project: "SCHNEIDER",
-        title: req.body.resource.title,
-        description: req.body.resource.description,
-        link: req.body.resource._links.web.href,
-        isReviewed: false,
-      });
+      if (req.body.resource.title && req.body.resource._links.web.href) {
+        await this.addPr({
+          project: "SCHNEIDER",
+          title: req.body.resource.title,
+          description: req.body.resource.description,
+          link: req.body.resource._links.web.href,
+          isReviewed: false,
+          date: new Date(),
+        });
+      }
     });
   }
 
@@ -55,7 +61,7 @@ export class WebhooksProvider {
   }
 
   async getPrs(): Promise<Partial<PullRequestDbObject>[]> {
-    return await this.config.pullRequests.find().toArray();
+    return await this.config.pullRequests.find().sort({date: -1}).toArray();
   }
 
   async getPr(id: string | ObjectID): Promise<Partial<PullRequestDbObject>> {
@@ -73,6 +79,22 @@ export class WebhooksProvider {
     });
 
     pr = await this.getPr(id);
+
+    this.pubsub.publish(this.PR_REVIEWED, {
+      [this.PR_REVIEWED]: pr,
+    });
+
+    return pr;
+  }
+
+  async updatePrComment(id: string | ObjectID, comment: String): Promise<Partial<PullRequestDbObject>> {
+    await this.config.pullRequests.updateOne({
+      _id: verifyId(id),
+    }, {
+      $set: { comment },
+    });
+
+    const pr = await this.getPr(id);
 
     this.pubsub.publish(this.PR_REVIEWED, {
       [this.PR_REVIEWED]: pr,

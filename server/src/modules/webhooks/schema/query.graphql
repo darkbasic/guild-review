@@ -10,4 +10,8 @@ type PullRequest @entity {
     description: String @column
     link: String! @column
     isReviewed: Boolean! @column
+    date: Date! @column
+    comment: String @column
 }
+
+scalar Date

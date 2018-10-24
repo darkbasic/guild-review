@@ -1,5 +1,14 @@
 import { Injectable } from '@angular/core';
-import { PrAddedGQL, PrReviewedGQL, PullRequests, PullRequestsGQL, ReviewPr, ReviewPrGQL } from '../../types';
+import {
+  PrAddedGQL,
+  PrReviewedGQL,
+  PullRequests,
+  PullRequestsGQL,
+  ReviewPr,
+  ReviewPrGQL,
+  UpdatePrComment,
+  UpdatePrCommentGQL
+} from '../../types';
 import { pluck } from 'rxjs/operators';
 import { ApolloQueryResult } from 'apollo-client';
 import { Observable } from 'rxjs';
@@ -13,6 +22,7 @@ export class PrListerApolloService {
   constructor(
     private pullRequestsGQL: PullRequestsGQL,
     private reviewPrGQL: ReviewPrGQL,
+    private updatePrCommentGQL: UpdatePrCommentGQL,
     private prAddedGQL: PrAddedGQL,
     private prReviewedGQL: PrReviewedGQL,
   ) {}
@@ -30,7 +40,7 @@ export class PrListerApolloService {
         const newPr = subscriptionData.data.prAdded;
 
         return Object.assign({}, prev, {
-          pullRequests: [...prev.pullRequests, newPr],
+          pullRequests: [newPr, ...prev.pullRequests],
         });
       }
     });
@@ -55,7 +65,7 @@ export class PrListerApolloService {
     );
   }
 
-  reviewPr$(pr: PullRequests.PullRequests, selected: boolean): Observable<FetchResult<ReviewPr.Mutation>> {
+  reviewPr$(pr: PullRequests.PullRequests, isReviewed: boolean): Observable<FetchResult<ReviewPr.Mutation>> {
     return this.reviewPrGQL.mutate({id: pr.id}, {
       optimisticResponse: {
         __typename: 'Mutation',
@@ -65,21 +75,58 @@ export class PrListerApolloService {
           title: pr.title,
           description: pr.description,
           link: pr.link,
-          isReviewed: selected,
+          date: pr.date,
+          project: pr.project,
+          comment: pr.comment,
+          isReviewed,
         },
       },
       update: (store, { data: { reviewPr } }: {data: ReviewPr.Mutation}) => {
         {
           // Read the data from our cache for this query.
-          const {pullRequests} = store.readQuery<PullRequests.Query, PullRequests.Variables>({
+          const data = store.readQuery<PullRequests.Query, PullRequests.Variables>({
             query: this.pullRequestsGQL.document,
           });
           // Write our data back to the cache.
           store.writeQuery({
             query: this.pullRequestsGQL.document,
-            data: {
-              pullRequests: pullRequests.map(pullRequest => pullRequest.id === pr.id ? {...reviewPr} : pullRequest),
-            }
+            data: Object.assign({}, data, {
+              pullRequests: data.pullRequests.map(pullRequest => pullRequest.id === pr.id ? {...reviewPr} : pullRequest),
+            }),
+          });
+        }
+      }
+    });
+  }
+
+  updatePrComment$(pr: PullRequests.PullRequests, comment: string): Observable<FetchResult<UpdatePrComment.Mutation>> {
+    return this.updatePrCommentGQL.mutate({id: pr.id, comment}, {
+      optimisticResponse: {
+        __typename: 'Mutation',
+        updatePrComment: {
+          id: pr.id,
+          __typename: 'PullRequest',
+          title: pr.title,
+          description: pr.description,
+          link: pr.link,
+          date: pr.date,
+          project: pr.project,
+          comment,
+          isReviewed: pr.isReviewed,
+        },
+      },
+      update: (store, { data: { updatePrComment } }: {data: UpdatePrComment.Mutation}) => {
+        {
+          // Read the data from our cache for this query.
+          const data = store.readQuery<PullRequests.Query, PullRequests.Variables>({
+            query: this.pullRequestsGQL.document,
+          });
+          // Write our data back to the cache.
+          store.writeQuery({
+            query: this.pullRequestsGQL.document,
+            data: Object.assign({}, data, {
+              pullRequests: data.pullRequests.map(pullRequest => pullRequest.id === pr.id ? {...updatePrComment} : pullRequest),
+            }),
           });
         }
       }

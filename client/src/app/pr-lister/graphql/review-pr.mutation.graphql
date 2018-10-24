@@ -5,6 +5,8 @@ mutation reviewPr($id: ID!) {
     title
     description
     link
+    date
+    comment
     isReviewed
   }
 }

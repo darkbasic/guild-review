@@ -1,8 +1,12 @@
-<mat-selection-list (selectionChange)="reviewPr($event)">
-  <mat-list-option *ngFor="let pr of prs$ | async" [value]="pr" [selected]="pr.isReviewed">
-    <a matLine [href]="pr.link">{{pr.project}}: {{pr.title}}</a>
+<mat-list>
+  <mat-list-item *ngFor="let pr of prs$ | async; trackBy: pr?.id">
+    <div matLine>
+      <mat-checkbox [checked]="pr.isReviewed" (change)="reviewPr(pr, $event.checked)">Reviewed</mat-checkbox>
+      <a [href]="pr.link">{{pr.project}}: {{pr.title}}</a>
+    </div>
     <p matLine>
       {{pr.description}}
     </p>
-  </mat-list-option>
-</mat-selection-list>
+    <textarea matLine matInput [ngModel]="pr.comment" (ngModelChange)="updatePrComment(pr, $event)"></textarea>
+  </mat-list-item>
+</mat-list>

@@ -1,0 +1,12 @@
+mutation updatePrComment($id: ID!, $comment: String!) {
+  updatePrComment(id: $id, comment: $comment) {
+    id
+    project
+    title
+    description
+    link
+    date
+    comment
+    isReviewed
+  }
+}

@@ -5,6 +5,8 @@ subscription prReviewed {
     title
     description
     link
+    date
+    comment
     isReviewed
   }
 }

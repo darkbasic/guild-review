@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PrListerApolloService } from '../../services/pr-lister-apollo.service';
+import { PullRequests } from "../../../types";
 
 @Component({
   selector: 'app-pr-list',
@@ -13,7 +14,11 @@ export class PrListComponent implements OnInit {
 
   ngOnInit() {}
 
-  reviewPr({ option: { value: pr, selected } }: any) {
-    this.prListerApolloService.reviewPr$(pr, selected).subscribe();
+  reviewPr(pr: PullRequests.PullRequests, isReviewed: boolean) {
+    this.prListerApolloService.reviewPr$(pr, isReviewed).subscribe();
+  }
+
+  updatePrComment(pr: PullRequests.PullRequests, comment: string) {
+    this.prListerApolloService.updatePrComment$(pr, comment).subscribe();
   }
 }
