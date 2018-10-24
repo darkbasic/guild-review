@@ -28,7 +28,7 @@ export class WebhooksProvider {
           date: new Date(),
         });
       } else {
-        console.error('The webhook is malformed, discarding.')
+        console.error('The webhook is malformed:', JSON.stringify(req.body));
       }
     });
 
@@ -46,7 +46,7 @@ export class WebhooksProvider {
           date: new Date(),
         });
       } else {
-        console.error('The webhook is malformed, discarding.')
+        console.error('The webhook is malformed:', JSON.stringify(req.body));
       }
     });
   }
