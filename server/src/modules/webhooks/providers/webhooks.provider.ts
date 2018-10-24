@@ -18,7 +18,7 @@ export class WebhooksProvider {
       console.log('INCOMING KLM WEBHOOK');
       res.send({});
 
-      if (req.body.pullrequest.title && req.body.pullrequest.links.html.href) {
+      if (req.body.pullrequest && req.body.pullrequest.title && req.body.pullrequest.links.html.href) {
         await this.addPr({
           project: "KLM",
           title: req.body.pullrequest.title,
@@ -27,6 +27,8 @@ export class WebhooksProvider {
           isReviewed: false,
           date: new Date(),
         });
+      } else {
+        console.error('The webhook is malformed, discarding.')
       }
     });
 
@@ -34,7 +36,7 @@ export class WebhooksProvider {
       console.log('INCOMING SCHNEIDER WEBHOOK');
       res.send({});
 
-      if (req.body.resource.title && req.body.resource._links.web.href) {
+      if (req.body.resource && req.body.resource.title && req.body.resource._links.web.href) {
         await this.addPr({
           project: "SCHNEIDER",
           title: req.body.resource.title,
@@ -43,6 +45,8 @@ export class WebhooksProvider {
           isReviewed: false,
           date: new Date(),
         });
+      } else {
+        console.error('The webhook is malformed, discarding.')
       }
     });
   }
