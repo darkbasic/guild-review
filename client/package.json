@@ -42,7 +42,6 @@
     "graphql-codegen-apollo-angular-template": "^0.12.6",
     "graphql-tag": "^2.10.0",
     "hammerjs": "^2.0.8",
-    "newrelic": "^4.9.0",
     "rxjs": "~6.3.3",
     "subscriptions-transport-ws": "^0.9.15",
     "zone.js": "~0.8.26"
