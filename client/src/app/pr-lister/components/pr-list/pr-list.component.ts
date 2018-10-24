@@ -14,6 +14,10 @@ export class PrListComponent implements OnInit {
 
   ngOnInit() {}
 
+  trackById(i, { id }) {
+    return id;
+  }
+
   reviewPr(pr: PullRequests.PullRequests, isReviewed: boolean) {
     this.prListerApolloService.reviewPr$(pr, isReviewed).subscribe();
   }

@@ -1,5 +1,5 @@
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let pr of prs$ | async; trackBy: pr?.id"(closed)="updatePrComment(pr, form.value.comment)">
+  <mat-expansion-panel *ngFor="let pr of prs$ | async; trackBy: trackById" (closed)="updatePrComment(pr, form.value.comment)">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <mat-checkbox [checked]="pr.isReviewed" (change)="reviewPr(pr, $event.checked)"></mat-checkbox>
