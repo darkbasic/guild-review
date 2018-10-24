@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+mat-accordion {
+  mat-expansion-panel {
+    form {
+      display: flex;
+
+      mat-form-field {
+        flex: 1 1 auto;
+      }
+    }
+
+    mat-expansion-panel-header {
+      mat-panel-title {
+        max-width: 150px;
+
+        mat-checkbox {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

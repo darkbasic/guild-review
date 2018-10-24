@@ -19,6 +19,8 @@ export class PrListComponent implements OnInit {
   }
 
   updatePrComment(pr: PullRequests.PullRequests, comment: string) {
-    this.prListerApolloService.updatePrComment$(pr, comment).subscribe();
+    if (comment !== pr.comment) {
+      this.prListerApolloService.updatePrComment$(pr, comment).subscribe();
+    }
   }
 }

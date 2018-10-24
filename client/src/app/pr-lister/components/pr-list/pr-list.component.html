@@ -1,12 +1,21 @@
-<mat-list>
-  <mat-list-item *ngFor="let pr of prs$ | async; trackBy: pr?.id">
-    <div matLine>
-      <mat-checkbox [checked]="pr.isReviewed" (change)="reviewPr(pr, $event.checked)">Reviewed</mat-checkbox>
-      <a [href]="pr.link">{{pr.project}}: {{pr.title}}</a>
-    </div>
-    <p matLine>
-      {{pr.description}}
-    </p>
-    <textarea matLine matInput [ngModel]="pr.comment" (ngModelChange)="updatePrComment(pr, $event)"></textarea>
-  </mat-list-item>
-</mat-list>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let pr of prs$ | async; trackBy: pr?.id"(closed)="updatePrComment(pr, form.value.comment)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-checkbox [checked]="pr.isReviewed" (change)="reviewPr(pr, $event.checked)"></mat-checkbox>
+        <span>{{pr.project}} </span>
+      </mat-panel-title>
+      <mat-panel-description>
+        <a [href]="pr.link" target="_blank">{{pr.title}}</a>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div>{{pr.description}}</div>
+
+    <form #form="ngForm">
+      <mat-form-field>
+        <textarea name="comment" matInput [ngModel]="pr.comment"></textarea>
+      </mat-form-field>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
