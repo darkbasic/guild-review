@@ -1,6 +1,6 @@
 import auth = require("basic-auth");
 
-const admins = process.env.CLIENT_ADMINS || { 'admin': { password: 'password' }, };
+const admins = { 'admin': { password: process.env.ADMIN_PASSWORD || 'password' }, };
 
 export const clientAuth = (request, response, next) => {
   const user = auth(request);
@@ -11,7 +11,7 @@ export const clientAuth = (request, response, next) => {
   return next();
 };
 
-const schneiderAdmins = process.env.KLM_ADMINS || { 'schneider': { password: 'password' }, };
+const schneiderAdmins = { 'schneider': { password: process.env.SCHNEIDER_PASSWORD || 'password' }, };
 
 export const schneiderAuth = (request, response, next) => {
   const user = auth(request);
