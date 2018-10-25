@@ -12,6 +12,8 @@ type PullRequest @entity {
     isReviewed: Boolean! @column
     date: Date! @column
     comment: String @column
+    repository: String @column
+    prId: Int @column
 }
 
 scalar Date

@@ -24,6 +24,8 @@ export class WebhooksProvider {
           project: "KLM",
           title: req.body.pullRequest.title,
           description: req.body.pullRequest.description,
+          repository: req.body.pullRequest.toRef.repository.slug,
+          prId: parseInt(req.body.pullRequest.id),
           link: `https://bitbucket.devnet.klm.com/projects/BW/repos/${req.body.pullRequest.toRef.repository.slug}/pull-requests/${req.body.pullRequest.id}/overview`,
           isReviewed: false,
           date: new Date(),
