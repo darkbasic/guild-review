@@ -4,6 +4,7 @@ import { ObjectID } from "bson";
 import { PullRequestDbObject } from "../../../generated-models";
 import { verifyId } from "@modules/webhooks/utills/verify-id";
 import { PubSub } from 'apollo-server-express';
+import { schneiderAuth } from "../../../auth";
 
 @injectable()
 export class WebhooksProvider {
@@ -35,6 +36,7 @@ export class WebhooksProvider {
       }
     });
 
+    config.expressApp.use('/webhooks/schneider', schneiderAuth);
     config.expressApp.post('/webhooks/schneider', async (req, res) => {
       console.log('INCOMING SCHNEIDER WEBHOOK');
       res.send({});

@@ -9,7 +9,7 @@ import { createLocalTunnel } from "./local-dev";
 import { MongoClient } from "mongodb";
 import { PullRequestDbObject } from "./generated-models";
 import { createServer } from "http";
-import { clientAuth, klmAuth } from "./auth";
+import { clientAuth } from "./auth";
 import * as cors from 'cors';
 
 const PORT = 3001;
@@ -25,7 +25,6 @@ async function main(): Promise<any> {
   listener.use(cors());
   listener.use(bodyParser.json());
   listener.use(/^((?!\/webhooks\/).)*$/, clientAuth);
-  listener.use('/webhooks/klm', klmAuth);
   let exposedServerUrl = '';
 
   if (process.env.NODE_ENV !== 'production') {

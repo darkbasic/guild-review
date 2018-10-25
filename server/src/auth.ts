@@ -13,7 +13,7 @@ export const clientAuth = (request, response, next) => {
 
 const schneiderAdmins = process.env.KLM_ADMINS || { 'schneider': { password: 'password' }, };
 
-export const klmAuth = (request, response, next) => {
+export const schneiderAuth = (request, response, next) => {
   const user = auth(request);
   if (!user || !schneiderAdmins[user.name] || schneiderAdmins[user.name].password !== user.pass) {
     response.set('WWW-Authenticate', 'Basic realm="guild-review"');
