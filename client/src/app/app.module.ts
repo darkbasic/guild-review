@@ -1,16 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { PrListerModule } from './pr-lister/pr-lister.module';
+import { AuthInterceptor } from "./login/services/auth.interceptor";
+import { ErrorInterceptor } from "./login/services/error.interceptor";
+import { LoginModule } from "./login/login.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,8 +21,22 @@ import { PrListerModule } from './pr-lister/pr-lister.module';
     HttpClientModule,
     SharedModule,
     PrListerModule,
+    LoginModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [
+    AppComponent,
+  ],
 })
 export class AppModule { }

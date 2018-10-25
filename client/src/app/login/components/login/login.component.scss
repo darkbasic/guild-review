@@ -1,0 +1,26 @@
+:host {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card {
+
+  mat-card-header {
+    justify-content: center;
+  }
+
+  mat-card-content {
+
+    form {
+      display: flex;
+      flex-flow: column;
+    }
+  }
+}

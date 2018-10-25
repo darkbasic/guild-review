@@ -14,7 +14,7 @@ export class WebhooksProvider {
   constructor(
     @inject(ModuleConfig('webhooks')) private config: WebhooksModuleConfig,
   ) {
-    config.expressApp.post('/klm', async (req, res) => {
+    config.expressApp.post('/webhooks/klm', async (req, res) => {
       console.log('INCOMING KLM WEBHOOK');
       res.send({});
 
@@ -35,7 +35,7 @@ export class WebhooksProvider {
       }
     });
 
-    config.expressApp.post('/schneider', async (req, res) => {
+    config.expressApp.post('/webhooks/schneider', async (req, res) => {
       console.log('INCOMING SCHNEIDER WEBHOOK');
       res.send({});
 
