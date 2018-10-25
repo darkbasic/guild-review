@@ -13,11 +13,28 @@ mat-accordion {
     }
 
     mat-expansion-panel-header {
+      ::ng-deep span.mat-content {
+        max-height: 100%;
+        align-items: center;
+      }
+
       mat-panel-title {
+        align-items: center;
         max-width: 150px;
 
         mat-checkbox {
+          margin-top: -1px;
           margin-right: 10px;
+        }
+      }
+
+      mat-panel-description {
+        overflow: hidden;
+
+        a {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
       }
     }
