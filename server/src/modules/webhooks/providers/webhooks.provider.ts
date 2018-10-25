@@ -18,12 +18,13 @@ export class WebhooksProvider {
       console.log('INCOMING KLM WEBHOOK');
       res.send({});
 
-      if (req.body.pullrequest && req.body.pullrequest.title && req.body.pullrequest.links.html.href) {
+      if (req.body.pullRequest && req.body.pullRequest.title && req.body.pullRequest.id && req.body.pullRequest.toRef &&
+        req.body.pullRequest.toRef.repository && req.body.pullRequest.toRef.repository.slug) {
         await this.addPr({
           project: "KLM",
-          title: req.body.pullrequest.title,
-          description: req.body.pullrequest.description,
-          link: req.body.pullrequest.links.html.href,
+          title: req.body.pullRequest.title,
+          description: req.body.pullRequest.description,
+          link: `https://bitbucket.devnet.klm.com/projects/BW/repos/${req.body.pullRequest.toRef.repository.slug}/pull-requests/${req.body.pullRequest.id}/overview`,
           isReviewed: false,
           date: new Date(),
         });
