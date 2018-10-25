@@ -7,7 +7,6 @@
     "start": "ng serve",
     "start:heroku": "node server.js",
     "build": "ng build",
-    "build:heroku": "ng build --configuration=heroku",
     "build:prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
