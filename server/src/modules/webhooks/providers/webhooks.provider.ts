@@ -41,11 +41,14 @@ export class WebhooksProvider {
       console.log('INCOMING SCHNEIDER WEBHOOK');
       res.send({});
 
-      if (req.body.resource && req.body.resource.title && req.body.resource._links.web.href) {
+      if (req.body.resource && req.body.resource.title && req.body.resource.repository && req.body.resource.repository.name &&
+        req.body.resource.pullRequestId && req.body.resource._links && req.body.resource._links.web && req.body.resource._links.web.href) {
         await this.addPr({
           project: "SCHNEIDER",
           title: req.body.resource.title,
           description: req.body.resource.description,
+          repository: req.body.resource.repository.name,
+          prId: parseInt(req.body.resource.pullRequestId),
           link: req.body.resource._links.web.href,
           isReviewed: false,
           date: new Date(),

@@ -11,11 +11,13 @@ import {
   MatListModule
 } from '@angular/material';
 import { FormsModule } from "@angular/forms";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 const modules = [
   CommonModule,
   BrowserAnimationsModule,
   FormsModule,
+  FlexLayoutModule,
   MatListModule,
   MatCheckboxModule,
   MatFormFieldModule,

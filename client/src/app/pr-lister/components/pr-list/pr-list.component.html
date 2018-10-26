@@ -1,19 +1,25 @@
 <mat-accordion>
   <mat-expansion-panel *ngFor="let pr of prs$ | async; trackBy: trackById" (closed)="updatePrComment(pr, form.value.comment)">
     <mat-expansion-panel-header>
-      <mat-panel-title>
+      <mat-panel-title fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
         <mat-checkbox [checked]="pr.isReviewed" (change)="reviewPr(pr, $event.checked)"></mat-checkbox>
-        <span>{{pr.project}} </span>
+        <div>{{pr.project}}</div>
+        <div>{{pr.repository}} </div>
       </mat-panel-title>
+
       <mat-panel-description>
         <a [href]="pr.link" target="_blank">{{pr.title}}</a>
       </mat-panel-description>
     </mat-expansion-panel-header>
 
+    <div class="margin-bottom">
+      <a fxShow fxHide.gt-xs [href]="pr.link" target="_blank">{{pr.title}}</a>
+    </div>
+
     <div>{{pr.description}}</div>
 
-    <form #form="ngForm">
-      <mat-form-field>
+    <form #form="ngForm" fxLayout>
+      <mat-form-field fxFlex="1 1 auto">
         <textarea name="comment" matInput [ngModel]="pr.comment"></textarea>
       </mat-form-field>
     </form>

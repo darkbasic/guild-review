@@ -4,6 +4,8 @@ mutation reviewPr($id: ID!) {
     project
     title
     description
+    repository
+    prId
     link
     date
     comment

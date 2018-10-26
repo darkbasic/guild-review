@@ -4,6 +4,8 @@ subscription prReviewed {
     project
     title
     description
+    repository
+    prId
     link
     date
     comment

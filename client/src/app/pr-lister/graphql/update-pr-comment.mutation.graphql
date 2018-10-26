@@ -4,6 +4,8 @@ mutation updatePrComment($id: ID!, $comment: String!) {
     project
     title
     description
+    repository
+    prId
     link
     date
     comment
