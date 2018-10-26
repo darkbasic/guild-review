@@ -2,7 +2,7 @@
   <mat-expansion-panel *ngFor="let pr of prs$ | async; trackBy: trackById" (closed)="updatePrComment(pr, form.value.comment)">
     <mat-expansion-panel-header>
       <mat-panel-title fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
-        <mat-checkbox [checked]="pr.isReviewed" (change)="reviewPr(pr, $event.checked)"></mat-checkbox>
+        <mat-checkbox [checked]="pr.isReviewed" (change)="reviewPr(pr, $event.checked)" (click)="$event.stopPropagation()"></mat-checkbox>
         <div>{{pr.project}}</div>
         <div>{{pr.repository}} </div>
       </mat-panel-title>
